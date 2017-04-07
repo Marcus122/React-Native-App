@@ -1,9 +1,15 @@
 import React, {Component} from 'react';
-import {View, Platform,  Navigator, Text, StatusBar} from 'react-native';
+import {Platform,  Navigator} from 'react-native';
+import {Spinner} from 'native-base';
+import { Provider } from 'react-redux';
+import configureStore from './configureStore';
 import Expo from 'expo'; 
 
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Home from './components/Home';
+
+const store = configureStore()
 
 export default class App extends Component {
   state = {
@@ -25,20 +31,23 @@ export default class App extends Component {
      switch(route.id){
        case 'signup':
          return <Signup navigator={navigator}/>
+       case 'home':
+         return <Home navigator={navigator}/>
        default:
           return <Login navigator={navigator}/>
      }
   }
   render() {
-    console.log(Platform)
     if (!this.state.isReady) {
-      return <Expo.Components.AppLoading />;
+      return <Spinner color='blue' />;
     }
     return (
-      <Navigator
-          initialRoute={{id: 'login'}}
-          renderScene={this.renderScene.bind(this)}
-        />
+      <Provider store={store}>
+        <Navigator
+            initialRoute={{id: 'login'}}
+            renderScene={this.renderScene.bind(this)} 
+          />
+        </Provider>
     );
   }
 }

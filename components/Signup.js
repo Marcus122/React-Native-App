@@ -3,7 +3,7 @@ import { Container, Content, Form, Item, Input, Button } from 'native-base';
 import { View, Text } from 'react-native';
 import StatusBar from './StatusBar';
 
-//import styles from './styles';
+import styles from './styles';
 
 class Signup extends Component{
     constructor(props){
@@ -49,25 +49,6 @@ class Signup extends Component{
             </Container>
         )
     }
-}
-
-var styles = {
-  flex: {
-    flex: 1
-  },
-  container: {
-    flex:1,
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'center',
-    margin:10
-  },
-  button:{
-      marginTop:20
-  },
-  text:{
-      color:"#fff"
-  }
 }
 
 export default Signup;

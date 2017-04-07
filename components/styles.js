@@ -1,13 +1,18 @@
-import React, { Component } from 'react';
-import {StyleSheet} from 'react-native';
-
 module.exports = {
-  container:{
-      backgroundColor:"#FFF",
+    flex: {
+      flex: 1
+    },
+    container: {
       flex:1,
-      justifyContent:"center"
-  },
-  content:{
-    flex:1
-  }
-};
+      flexDirection:'row',
+      alignItems:'center',
+      justifyContent:'center',
+      margin:10
+    },
+    button:{
+        marginTop:20
+    },
+    text:{
+        color:"#fff"
+    }
+}

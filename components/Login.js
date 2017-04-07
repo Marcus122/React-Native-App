@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
-import { Container, Content, Form, Item, Input, Button } from 'native-base';
+import { Container, Content, Form, Item, Input, Button, Toast } from 'native-base';
 import { View, Text } from 'react-native';
 import StatusBar from './StatusBar';
+import {connect} from 'react-redux';
 
-//import styles from './styles';
+import {login} from './../actions';
+
+console.log(login)
+
+import styles from './styles';
 
 class Login extends Component{
     constructor(props){
@@ -15,9 +20,17 @@ class Login extends Component{
         }
 
         this.onSignup=this.onSignup.bind(this);
+        this.onLogin=this.onLogin.bind(this);
+    }
+    onLogin(){
+        this.props.login(this.state.email,this.state.password);
     }
     onSignup(){
         this.props.navigator.push({id: 'signup'});
+    }
+    componentWillReceiveProps(nextProps){
+         console.log("nextProps",nextProps)
+        if(nextProps.loggedIn) return this.props.navigator.push({id: 'home'});
     }
     render(){
         return(
@@ -38,12 +51,13 @@ class Login extends Component{
                                 secureTextEntry={true}
                                 value={this.state.password}/>
                         </Item>
-                        <Button block style={styles.button}>
+                        <Button block style={styles.button} onPress={this.onLogin}>
                             <Text style={styles.text}>Login</Text>
                         </Button>
                         <Button dark transparent style={styles.button} onPress={this.onSignup}>
                             <Text>Not Registered? Sign up Now</Text>
                         </Button>
+                        {this.props.error ? <Text>Logging in failed</Text> : null}
                     </Form>
                 </Content>
             </Container>
@@ -51,23 +65,8 @@ class Login extends Component{
     }
 }
 
-var styles = {
-  flex: {
-    flex: 1
-  },
-  container: {
-    flex:1,
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'center',
-    margin:10
-  },
-  button:{
-      marginTop:20
-  },
-  text:{
-      color:"#fff"
-  }
+function mapStateToProps(state){
+    return state.auth;
 }
 
-export default Login;
+export default connect(mapStateToProps,{login})(Login);
