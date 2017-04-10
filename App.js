@@ -34,7 +34,7 @@ export default class App extends Component {
        case 'home':
          return <Home navigator={navigator}/>
        default:
-          return <Login navigator={navigator}/>
+          return <Signup navigator={navigator}/>
      }
   }
   render() {

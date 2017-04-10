@@ -4319,6 +4319,10 @@ react-native-easy-grid@0.1.7:
   dependencies:
     eventemitter3 "^2.0.2"
 
+react-native-google-sign-in@^0.0.14:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/react-native-google-sign-in/-/react-native-google-sign-in-0.0.14.tgz#1d8100553832bd30aa02bfa1aaf259429be13169"
+
 react-native-keyboard-aware-scroll-view@0.2.7:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.2.7.tgz#dd344cec25284b6314f1cc9d1b75ba267483c6b6"

@@ -1,9 +1,10 @@
-import { LOGIN, LOGOUT, LOGIN_ERROR, LOGGED_IN } from '../actions/types';
+import { LOGIN, LOGOUT, LOGIN_ERROR, LOGGED_IN, GOOGLE_LOGIN } from '../actions/types';
 
 const defaultState = {loggedIn:false};
 
 export default function(state={},action){
     switch(action.type){
+        case GOOGLE_LOGIN:
         case LOGIN:
             return {loading:true};
         case LOGOUT:

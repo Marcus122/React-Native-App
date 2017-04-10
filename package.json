@@ -24,6 +24,7 @@
     "native-base": "^2.1.1",
     "react": "^16.0.0-alpha.6",
     "react-native": "^0.43.1",
+    "react-native-google-sign-in": "^0.0.14",
     "react-redux": "^5.0.3",
     "redux": "^3.6.0",
     "redux-observable": "^0.14.1",

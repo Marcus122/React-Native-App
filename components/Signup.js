@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import { Container, Content, Form, Item, Input, Button } from 'native-base';
+import { Container, Content, Form, Item, Input, Button, List, ListItem, Body } from 'native-base';
 import { View, Text } from 'react-native';
 import StatusBar from './StatusBar';
+
+import GoogleSignIn from 'react-native-google-sign-in';
 
 import styles from './styles';
 
@@ -19,11 +21,21 @@ class Signup extends Component{
     onLogin(){
         this.props.navigator.push({id: 'signup'});
     }
+    onGoogleSignup(){
+        GoogleSignIn.signInPromise();
+    }
     render(){
         return(
             <Container style={styles.container}>
                 <StatusBar/>
                 <Content style={styles.flex}>
+                    <List>
+                        <ListItem onPress={this.onGoogleSignup}>
+                            <Body>
+                                <Text>Signup with google</Text>
+                            </Body>
+                        </ListItem>
+                    </List>
                     <Form style={styles.form}>
                         <Item>
                             <Input 
