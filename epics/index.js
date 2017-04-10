@@ -1,10 +1,11 @@
 import { combineEpics } from 'redux-observable';
-import {loginEpic} from './authEpic';
+import {loginEpic,googleLoginEpic} from './authEpic';
 
 import 'rxjs';
 
 const rootEpic = combineEpics(
-    loginEpic
+    loginEpic,
+    googleLoginEpic
 );
 
 export default rootEpic;

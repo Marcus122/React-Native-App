@@ -21,9 +21,13 @@ export const googleLoginEpic = action$ =>
     .mergeMap((action) => 
         Observable.from(firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(null, action.payload)))
         .map(() => {
+            console.log("google login")
             return {type:LOGGED_IN}
         })
-        .catch(error => Observable.of(
+        .catch(error => {
+            console.log("google fail  login")
+            return Observable.of(
                 {type:LOGIN_ERROR}
-            ))
+            )
+        })
     )

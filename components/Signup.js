@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import { Container, Content, Form, Item, Input, Button, List, ListItem, Body } from 'native-base';
 import { View, Text } from 'react-native';
 import StatusBar from './StatusBar';
+import {connect} from 'react-redux';
+
+import {googleLogin} from './../actions';
 
 import Expo from 'expo';
 
@@ -17,15 +20,25 @@ class Signup extends Component{
         }
 
         this.onLogin=this.onLogin.bind(this);
+        this.onGoogleSignup=this.onGoogleSignup.bind(this);
     }
     onLogin(){
         this.props.navigator.push({id: 'signup'});
     }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.loggedIn) return this.props.navigator.push({id: 'home'});
+    }
     onGoogleSignup(){
+        console.log(this);
         Expo.Google.logInAsync({
             androidClientId:'143930606865-ak255b861i2s09vanf4vhf9qjaag5apt.apps.googleusercontent.com'
         })
-        .catch(error => console.log(error));
+        .then(result=>{
+            console.log(this.props);
+            if(result.type === 'success'){
+                this.props.googleLogin(result.accessToken);
+            }
+        })
     }
     render(){
         return(
@@ -66,4 +79,8 @@ class Signup extends Component{
     }
 }
 
-export default Signup;
+function mapStateToProps(state){
+    return state.auth;
+}
+
+export default connect(mapStateToProps,{googleLogin})(Signup);
