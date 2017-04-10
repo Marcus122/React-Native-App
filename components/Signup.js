@@ -3,7 +3,7 @@ import { Container, Content, Form, Item, Input, Button, List, ListItem, Body } f
 import { View, Text } from 'react-native';
 import StatusBar from './StatusBar';
 
-import GoogleSignIn from 'react-native-google-sign-in';
+import Expo from 'expo';
 
 import styles from './styles';
 
@@ -22,7 +22,10 @@ class Signup extends Component{
         this.props.navigator.push({id: 'signup'});
     }
     onGoogleSignup(){
-        GoogleSignIn.signInPromise();
+        Expo.Google.logInAsync({
+            androidClientId:'143930606865-ak255b861i2s09vanf4vhf9qjaag5apt.apps.googleusercontent.com'
+        })
+        .catch(error => console.log(error));
     }
     render(){
         return(
