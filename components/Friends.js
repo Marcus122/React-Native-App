@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 import { Container, Header, Content, List, ListItem, Body,InputGroup,Icon,Input,Button } from 'native-base';
 import { View, Text } from 'react-native';
+import {connect} from 'react-redux';
 
 import styles from './styles';
 
 class Friends extends Component{
+    componentWillMount(){
+        console.log(this.props);
+    }
     render(){
         return(
             <Container style={styles.container}>
@@ -16,6 +20,7 @@ class Friends extends Component{
                             <Icon name="ios-people" />
                         </InputGroup>
                     </View>
+                    <Text>{this.props.displayName}</Text>
                     <List>
                         <ListItem>
                             <Body>
@@ -29,4 +34,8 @@ class Friends extends Component{
     }
 }
 
-export default Friends;
+function mapStateToProps(state){
+    return state.user;
+}
+
+export default connect(mapStateToProps)(Friends);

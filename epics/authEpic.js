@@ -11,7 +11,7 @@ export const loginEpic = action$ =>
         .map((user) => {
             return {
                 type:LOGGED_IN,
-                payload:user
+                payload:user.toJSON()
             }
         })
         .catch(error => Observable.of(
@@ -24,10 +24,10 @@ export const googleLoginEpic = action$ =>
     .mergeMap((action) => 
         Observable.from(firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(null, action.payload)))
         .map((user) => {
-            console.log("google login")
+            console.log("google login",arguments.length)
             return {
                 type:LOGGED_IN,
-                payload:user
+                payload:user.toJSON()
             }
         })
         .catch(error => {
