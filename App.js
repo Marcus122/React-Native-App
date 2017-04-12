@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform,  Navigator} from 'react-native';
+import {Platform,  Navigator, BackAndroid} from 'react-native';
 import {Spinner} from 'native-base';
 import { Provider } from 'react-redux';
 import configureStore from './configureStore';
@@ -16,6 +16,16 @@ export default class App extends Component {
     isReady: false,
   }
 
+  componentDidMount(){
+      BackAndroid.addEventListener('hardwareBackPress', () => {
+          if (this.nav && this.nav.getCurrentRoutes().length > 1) {
+              this.nav.pop();
+              return true;
+          }
+          return false;
+      });
+    }
+
   async componentWillMount() {
     if (Platform.OS === 'android') {
       await Expo.Font.loadAsync({
@@ -29,6 +39,8 @@ export default class App extends Component {
   renderScene(route, navigator){
     console.log(route)
      switch(route.id){
+       case 'login':
+         return <Login navigator={navigator}/>
        case 'signup':
          return <Signup navigator={navigator}/>
        case 'home':
@@ -44,7 +56,8 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <Navigator
-            initialRoute={{id: 'login'}}
+            ref={nav=>this.nav=nav}
+            initialRoute={{id: 'signup'}}
             renderScene={this.renderScene.bind(this)} 
           />
         </Provider>

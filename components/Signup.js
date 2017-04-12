@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Container, Content, Form, Item, Input, Button, List, ListItem, Body } from 'native-base';
+import { Container, Content, Form, Item, Input, Button, List, ListItem, Body,Right, Icon, Left } from 'native-base';
 import { View, Text } from 'react-native';
 import StatusBar from './StatusBar';
 import {connect} from 'react-redux';
@@ -23,7 +23,7 @@ class Signup extends Component{
         this.onGoogleSignup=this.onGoogleSignup.bind(this);
     }
     onLogin(){
-        this.props.navigator.push({id: 'signup'});
+        this.props.navigator.push({id: 'login'});
     }
     componentWillReceiveProps(nextProps){
         if(nextProps.loggedIn) return this.props.navigator.push({id: 'home'});
@@ -50,6 +50,9 @@ class Signup extends Component{
                             <Body>
                                 <Text>Signup with google</Text>
                             </Body>
+                            <Right>
+                                <Icon ios='logo-google' android='logo-google' style={{fontSize: 20, color: 'red'}}/>
+                            </Right>
                         </ListItem>
                     </List>
                     <Form style={styles.form}>
@@ -69,7 +72,7 @@ class Signup extends Component{
                         <Button block style={styles.button}>
                             <Text style={styles.text}>Register</Text>
                         </Button>
-                        <Button dark transparent style={styles.button}>
+                        <Button dark transparent style={styles.button} onPress={this.onLogin}>
                             <Text>Already Registered? Login now</Text>
                         </Button>
                     </Form>

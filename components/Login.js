@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Container, Content, Form, Item, Input, Button, Toast } from 'native-base';
+import { Container, Content, Form, Item, Input, Button, Toast,Spinner } from 'native-base';
 import { View, Text } from 'react-native';
 import StatusBar from './StatusBar';
 import {connect} from 'react-redux';
@@ -16,7 +16,8 @@ class Login extends Component{
 
         this.state ={
             email:"",
-            password:""
+            password:"",
+            error:false
         }
 
         this.onSignup=this.onSignup.bind(this);
@@ -29,8 +30,17 @@ class Login extends Component{
         this.props.navigator.push({id: 'signup'});
     }
     componentWillReceiveProps(nextProps){
-         console.log("nextProps",nextProps)
         if(nextProps.loggedIn) return this.props.navigator.push({id: 'home'});
+        if(!this.props.error && nextProps.error){
+            this.showError();
+        }
+    }
+    showError(){
+        Toast.show({
+            text: 'Wrong password!',
+            danger:'danger',
+            duration: 1000
+        });
     }
     render(){
         return(
@@ -51,13 +61,16 @@ class Login extends Component{
                                 secureTextEntry={true}
                                 value={this.state.password}/>
                         </Item>
+                        {!this.props.loading ? 
                         <Button block style={styles.button} onPress={this.onLogin}>
                             <Text style={styles.text}>Login</Text>
                         </Button>
+                        :
+                            <Spinner/>
+                        }
                         <Button dark transparent style={styles.button} onPress={this.onSignup}>
                             <Text>Not Registered? Sign up Now</Text>
                         </Button>
-                        {this.props.error ? <Text>Logging in failed</Text> : null}
                     </Form>
                 </Content>
             </Container>
